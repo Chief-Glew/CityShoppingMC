@@ -5,18 +5,18 @@
  */
 package CustomerGUI;
 
-
 import java.util.HashMap;
 import Classes.*;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author mcarr
  */
-public class CViewPlacedOrders extends javax.swing.JFrame {
+public class CViewPlacedOrders extends javax.swing.JFrame
+{
+    //Global Variables
     HashMap<Integer, Order> cOrders = new HashMap<>();
     GUI gui = new GUI();
     String action = "";
@@ -24,29 +24,31 @@ public class CViewPlacedOrders extends javax.swing.JFrame {
     Customer customer = new Customer();
     Order order = new Order();
     DBManager db = new DBManager();
+
     /**
      * Creates new form CViewPlacedOrders
      */
-    public CViewPlacedOrders() {
+    public CViewPlacedOrders()
+    {
         initComponents();
-        
-        
+
     }
-    
+
     public CViewPlacedOrders(Customer cust)
     {
         initComponents();
-        
+        // loads a customer with the passed in customers username
         customer = db.loadCustomer(cust.getUsername());
         int custId = customer.getId();
         customer.setId(custId);
-        
+        // load all the orders the customer with this ID has
         cOrders = db.loadAllOrdersForCustomer(customer.getId());
-        DefaultTableModel dtm = (DefaultTableModel)tblCOrders.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
-        String[] data = new String [5];
-        gui.populateOrders(data, cOrders, dtm, tblCOrders);
+        DefaultTableModel dtm = (DefaultTableModel) tblCOrders.getModel();
         
+        // Creates a string array for the collumn
+        // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
+        String[] data = new String[5];
+        gui.populateOrders(data, cOrders, dtm, tblCOrders);
 
     }
 
@@ -169,27 +171,31 @@ public class CViewPlacedOrders extends javax.swing.JFrame {
 
     private void btnViewPlacedOrderLinesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPlacedOrderLinesActionPerformed
         // TODO add your handling code here:
-        //Create an index of the clothing you picked
-            action = "viewed";
-            order = gui.findOrder(tblCOrders);
-            if(order.getOrderDate().equals(error))
-            {
-                gui.warning(lblResult, order, action);
-            }
-            else
-            {
-//                HashMap OrderLine = db.loadOrderLinesNoOrderID();
-//                db.editOrderID(order.getOrderId(), OrderLine);
-               CViewPlacedOrderLines cpol = new CViewPlacedOrderLines(customer, order);
-               this.dispose();
-               cpol.setVisible(true); 
-            }
-            
-            
+        
+        action = "viewed";
+        // turns selected row into an order object
+        order = gui.findOrder(tblCOrders);
+        // checks if order has not been selected orders data will be set to error
+        if (order.getOrderDate().equals(error))
+        {
+            // displays a warning that order line cannot be viewed
+            gui.warning(lblResult, order, action);
+        }
+        
+        else
+        {
+            // Passes in parameter customer and order to CViewPlacedOrderLines and takes you to that form
+            CViewPlacedOrderLines cpol = new CViewPlacedOrderLines(customer, order);
+            this.dispose();
+            cpol.setVisible(true);
+        }
+
+
     }//GEN-LAST:event_btnViewPlacedOrderLinesActionPerformed
 
     private void btnCustomerHomeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCustomerHomeActionPerformed
     {//GEN-HEADEREND:event_btnCustomerHomeActionPerformed
+        // Taks you back to the customer home page and passes in a customer parameter
         CHomeGUI cHome = new CHomeGUI(customer);
         this.dispose();
         cHome.setVisible(true);
@@ -198,26 +204,38 @@ public class CViewPlacedOrders extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(CViewPlacedOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(CViewPlacedOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(CViewPlacedOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(CViewPlacedOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -226,8 +244,10 @@ public class CViewPlacedOrders extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new CViewPlacedOrders().setVisible(true);
             }
         });

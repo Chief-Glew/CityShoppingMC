@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,16 +14,18 @@ import java.util.HashMap;
  *
  * @author 30137568
  */
-public class CRegisterGUI extends javax.swing.JFrame {
+public class CRegisterGUI extends javax.swing.JFrame
+{
+
     //Global Variables
     HashMap<Integer, Customer> customers = new HashMap<>();
     DBManager db = new DBManager();
     Customer loggedInUser;
-    
+
     /**
      * Creates new form RegisterGUI
      */
-    public CRegisterGUI() 
+    public CRegisterGUI()
     {
         initComponents();
         // Clears password field
@@ -31,9 +33,9 @@ public class CRegisterGUI extends javax.swing.JFrame {
         pwdRConfirmPassword.setText("");
         customers = db.loadAllCustomers();
     }
-    
+
     // Passed in Parameters to Constructor
-    public CRegisterGUI(HashMap <Integer,Customer> custs) 
+    public CRegisterGUI(HashMap<Integer, Customer> custs)
     {
         initComponents();
         customers = db.loadAllCustomers();
@@ -42,12 +44,7 @@ public class CRegisterGUI extends javax.swing.JFrame {
         // Clears password field
         pwdRPassword.setText("");
         pwdRConfirmPassword.setText("");
-        /*Customer cust = new Customer();
-        for (int i = 0; i <= custs.size(); i++)
-        {
-            cust = custs.get(i);
-            if (cust.getUsername())
-        }*/
+       
     }
 
     /**
@@ -296,12 +293,12 @@ public class CRegisterGUI extends javax.swing.JFrame {
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // Local Variables
         int userId = 0;
-        String username,firstName, lastName, addressLine1, addressLine2, town, postcode;
-        char[] password,confirmPassword;
+        String username, firstName, lastName, addressLine1, addressLine2, town, postcode;
+        char[] password, confirmPassword;
         boolean isRegistered = false;
-        
+
         Customer cust = new Customer();
-        
+
         //Taking data from text boxes and adding them to variables
         username = tfRUsername.getText();
         password = pwdRPassword.getPassword();
@@ -309,36 +306,36 @@ public class CRegisterGUI extends javax.swing.JFrame {
         lastName = tfRLastName.getText();
         confirmPassword = pwdRConfirmPassword.getPassword();
         addressLine1 = tfRAddressLine1.getText();
-        addressLine2 =tfAddressLine2.getText();
+        addressLine2 = tfAddressLine2.getText();
         town = tfRTown.getText();
         postcode = tfRPostcode.getText();
-        boolean isFound= false;
-        
+        boolean isFound = false;
+
         // Cycle through customers with te key username
-        for(Customer c : customers.values())
+        for (Customer c : customers.values())
         //for(int i = 0; i <= customers.size(); i++)
         {
-            
+
             if (c.getUsername().equals(username))
             {
                 isFound = true;
                 break;
-                
+
             }
-            
+
         }
-        
-        if(isFound == false)
+
+        if (isFound == false)
         {
             // If user does not add all data alert is shown 
-            if(username.equals("") ||password.equals("") ||confirmPassword.equals("") || 
-                addressLine1.equals("") ||  
-                town.equals("")||  postcode.equals(""))
+            if (username.equals("") || password.equals("") || confirmPassword.equals("")
+                    || addressLine1.equals("")
+                    || town.equals("") || postcode.equals(""))
             {
                 lblResult.setText("Important details are missing");
             }
-        
-            else 
+
+            else
             {
                 // If password aand confirm password are equal
                 if (Arrays.equals(password, confirmPassword))
@@ -347,7 +344,7 @@ public class CRegisterGUI extends javax.swing.JFrame {
                     isRegistered = true;
                     // Password char array gets converted to String
                     String strPassword = String.valueOf(password);
-                    
+
                     // Setting the Customer Object
                     cust.setUsername(username);
                     cust.setPassword(strPassword);
@@ -358,10 +355,10 @@ public class CRegisterGUI extends javax.swing.JFrame {
                     cust.setTown(town);
                     cust.setPostcode(postcode);
                     cust.setIsRegistered(isRegistered);
-                    
+
                     // Alert to show customer has been added
                     lblResult.setText("Your details have been added to the system.");
-                    
+
                     //Clears textboxes
                     tfRUsername.setText("");
                     pwdRPassword.setText("");
@@ -372,21 +369,19 @@ public class CRegisterGUI extends javax.swing.JFrame {
                     tfAddressLine2.setText("");
                     tfRTown.setText("");
                     tfRPostcode.setText("");
-                    
+
                     //Clears password
                     Arrays.fill(password, '0');
                     Arrays.fill(confirmPassword, '0');
-                    
-                    
-                    
+
                     // Saves customer to Hashmap
                     db.saveCustomer(cust);
                     cust = db.loadCustomer(username);
                     // Adds Customer to HashMap
-                    customers.put(cust.getId(),cust);
-                
+                    customers.put(cust.getId(), cust);
+
                 }
-            
+
                 else
                 {
                     //Alert to show paaswords do not match
@@ -394,21 +389,21 @@ public class CRegisterGUI extends javax.swing.JFrame {
                 }
             }
         }
-        
+
         else
         {
             // Alert to show username already exists
             lblResult.setText("Username already exists");
             //Clears textboxes
-                    tfRUsername.setText("");
-                    pwdRPassword.setText("");
-                    pwdRConfirmPassword.setText("");
-                    tfRFirstName.setText("");
-                    tfRLastName.setText("");
-                    tfRAddressLine1.setText("");
-                    tfAddressLine2.setText("");
-                    tfRTown.setText("");
-                    tfRPostcode.setText("");
+            tfRUsername.setText("");
+            pwdRPassword.setText("");
+            pwdRConfirmPassword.setText("");
+            tfRFirstName.setText("");
+            tfRLastName.setText("");
+            tfRAddressLine1.setText("");
+            tfAddressLine2.setText("");
+            tfRTown.setText("");
+            tfRPostcode.setText("");
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
@@ -417,32 +412,44 @@ public class CRegisterGUI extends javax.swing.JFrame {
         CLoginGUI backCustL = new CLoginGUI(customers);
         this.dispose();
         backCustL.setVisible(true);
-        
+
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(CRegisterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(CRegisterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(CRegisterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(CRegisterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -463,8 +470,10 @@ public class CRegisterGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new CRegisterGUI().setVisible(true);
             }
         });

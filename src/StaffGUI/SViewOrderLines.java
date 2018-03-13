@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package StaffGUI;
+
 import Classes.*;
 
 import java.util.HashMap;
@@ -13,29 +14,34 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author mcarr
  */
-public class SViewOrderLines extends javax.swing.JFrame {
-    DBManager db  = new DBManager();
+public class SViewOrderLines extends javax.swing.JFrame
+{
+    // Global Variables
+    DBManager db = new DBManager();
     GUI gui = new GUI();
-    HashMap<Integer, OrderLine> orderLines = new HashMap(); 
+    HashMap<Integer, OrderLine> orderLines = new HashMap();
+
     /**
      * Creates new form SViewOrderLines
      */
-    public SViewOrderLines() {
+    public SViewOrderLines()
+    {
         initComponents();
     }
-    
-     public SViewOrderLines(Order order) {
+
+    public SViewOrderLines(Order order)
+    {
         initComponents();
+        // load orderlines that have the same orderID as the passes in parameter
         orderLines = db.loadAllOrderLinesCust(order.getOrderId());
         
-        DefaultTableModel dtm = (DefaultTableModel)tblSOrderLine.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
-        String [] data = new String[4];
+        // Gets table model from table
+        DefaultTableModel dtm = (DefaultTableModel) tblSOrderLine.getModel();
+        // Creates a string array for the collumn
+        // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
+        String[] data = new String[4];
         gui.populateOrderLines(data, orderLines, dtm, tblSOrderLine);
-        
-        
-        
-        
+
     }
 
     /**
@@ -143,6 +149,7 @@ public class SViewOrderLines extends javax.swing.JFrame {
 
     private void btnReturnToOrdersActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnReturnToOrdersActionPerformed
     {//GEN-HEADEREND:event_btnReturnToOrdersActionPerformed
+        // Goes back to SViewAllOrders form 
         SViewAllOrders sval = new SViewAllOrders();
         this.dispose();
         sval.setVisible(true);
@@ -151,33 +158,47 @@ public class SViewOrderLines extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(SViewOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(SViewOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(SViewOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(SViewOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new SViewOrderLines().setVisible(true);
             }
         });

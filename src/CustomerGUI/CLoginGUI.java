@@ -14,34 +14,31 @@ import java.util.HashMap;
  *
  * @author 30137568
  */
-public class CLoginGUI extends javax.swing.JFrame {
+public class CLoginGUI extends javax.swing.JFrame
+{
 
     /**
      * Creates new form CustLoginGUI
      */
     // Global Variables
-    DBManager db = new  DBManager();
-    HashMap<Integer, Customer> customers ;
+    DBManager db = new DBManager();
+    HashMap<Integer, Customer> customers;
     Customer loggedInUser;
-    
-   /* public void setUser(String user) {this.tf_cUsername.setText(user);}
-    public String getUser() {return this.tf_cUsername.getText();}
 
-    public void setPass(char[] pass) {this.pwdCLPassword.setText(pass);}
-    public char[] getPass() {return this.pwdCLPassword.getPassword();}*/
-    
+   
     // Passed in Parameters to Constructor
-    public CLoginGUI(HashMap <Integer,Customer> custs)
+    public CLoginGUI(HashMap<Integer, Customer> custs)
     {
         initComponents();
         //Passed in global variables equal parameters passed in
         customers = db.loadAllCustomers();
         customers = custs;
-        
+
         // Clears password field
         pwdCLPassword.setText("");
     }
-    public CLoginGUI() 
+
+    public CLoginGUI()
     {
         initComponents();
         pwdCLPassword.setText("");
@@ -194,82 +191,93 @@ public class CLoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_RegisterActionPerformed
 
     private void btn_cLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cLoginActionPerformed
-        
-            //New Instance of Customer
-            Customer myCust = new Customer();
-            
-            //Taking data from text boxes and adding them to variables
-            String logUsername = tf_cUsername.getText();
-            char[] logPassword = pwdCLPassword.getPassword();
-            
-            // Set a boolean variable for if statements
-            boolean isfound = false;
-            
-            // Convert char array to String
-            String strPassword = String.valueOf(logPassword);
-        
-            // Cycle through customers with te key username
-            for(Customer cust : customers.values())
-            //for(int i = 0; i <= customers.size(); i++)
+
+        //New Instance of Customer
+        Customer myCust = new Customer();
+
+        //Taking data from text boxes and adding them to variables
+        String logUsername = tf_cUsername.getText();
+        char[] logPassword = pwdCLPassword.getPassword();
+
+        // Set a boolean variable for if statements
+        boolean isfound = false;
+
+        // Convert char array to String
+        String strPassword = String.valueOf(logPassword);
+
+        // Cycle through customers with te key username
+        for (Customer cust : customers.values())
+        //for(int i = 0; i <= customers.size(); i++)
+        {
+            // if username typed equals typed user name
+            if (cust.getUsername().equals(logUsername))
             {
-                // if username typed equals typed user name
-                if (cust.getUsername().equals(logUsername))
+                // if password typed equals password
+                if (cust.getPassword().equals(strPassword))
                 {
-                    // if password typed equals password
-                    if(cust.getPassword().equals(strPassword))
-                    {
-                        // Global variable equals cust
-                        loggedInUser = cust;
-                        // isFound equals true
-                        isfound = true;
-                        // break out of loop
-                        break;
-                    }
-                
+                    // Global variable equals cust
+                    loggedInUser = cust;
+                    // isFound equals true
+                    isfound = true;
+                    // break out of loop
+                    break;
                 }
-            
+
             }
-        
-            // if isfound equals true then customer logs in and gets taken to customer home
-            if(isfound == true)
-                {
-                    CHomeGUI cHome = new CHomeGUI(loggedInUser, customers);
-                    this.dispose();
-                    cHome.setVisible(true);
-                }
-            // alert user login details are incorrect     
-            else
-                {
-                    lblResult.setText("User credentials incorrect.");  
-                }  
-        
-        
-       
+
+        }
+
+        // if isfound equals true then customer logs in and gets taken to customer home
+        if (isfound == true)
+        {
+            CHomeGUI cHome = new CHomeGUI(loggedInUser, customers);
+            this.dispose();
+            cHome.setVisible(true);
+        }
+        // alert user login details are incorrect     
+        else
+        {
+            lblResult.setText("User credentials incorrect.");
+        }
+
+
     }//GEN-LAST:event_btn_cLoginActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(CLoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(CLoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(CLoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(CLoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -306,8 +314,10 @@ public class CLoginGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new CLoginGUI().setVisible(true);
             }
         });

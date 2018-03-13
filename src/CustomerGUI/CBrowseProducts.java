@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package CustomerGUI;
+
 import Classes.*;
 import java.util.HashMap;
 import javax.swing.ButtonGroup;
@@ -19,8 +20,9 @@ import javax.swing.table.TableColumnModel;
  *
  * @author mcarr
  */
-public class CBrowseProducts extends javax.swing.JFrame {
-
+public class CBrowseProducts extends javax.swing.JFrame
+{
+    // Global variables
     DBManager db = new DBManager();
     Customer cust = new Customer();
     GUI gui = new GUI();
@@ -32,29 +34,33 @@ public class CBrowseProducts extends javax.swing.JFrame {
     int itemTaken;
     int columnNumber = 4;
     String columnName = "";
+
     /**
      * Creates new form ViewProducts
      */
+    // Grouping buttons so they can only be accessed one at a time
     private void groupButton()
     {
         ButtonGroup bg2 = new ButtonGroup();
         bg2.add(rbClothing);
         bg2.add(rbFootwear);
-        
+
     }
-    
-    public CBrowseProducts() 
+
+    public CBrowseProducts()
     {
         initComponents();
         groupButton();
+        // loads all clothing and footwear into hashmaps from the database
         clothes = db.loadAllClothing();
         shoes = db.loadAllFootwear();
     }
-    
+    // Passed in Parameters to Constructor
     public CBrowseProducts(Customer c)
     {
         initComponents();
         groupButton();
+        //Global variables equal parameter c passed in
         cust = c;
         clothes = db.loadAllClothing();
         shoes = db.loadAllFootwear();
@@ -254,83 +260,89 @@ public class CBrowseProducts extends javax.swing.JFrame {
 
     private void rbClothingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbClothingActionPerformed
         // TODO add your handling code here:
+        // renames column to Mesurement
         columnName = "Measurement";
         gui.renameColumn(tblCProducts, columnNumber, columnName);
+        // loads all the clothing from the database into the hashmap
         clothes = db.loadAllClothing();
-        DefaultTableModel dtm = (DefaultTableModel)tblCProducts.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
-        String [] data = new String[5];
+        
+        // Gets the table and converts it into a model
+        DefaultTableModel dtm = (DefaultTableModel) tblCProducts.getModel();
+        
+        // Creates a string array for the collumns
+        // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
+        String[] data = new String[5];
         gui.populateClothes(data, clothes, dtm, tblCProducts);
     }//GEN-LAST:event_rbClothingActionPerformed
 
     private void rbFootwearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFootwearActionPerformed
         // TODO add your handling code here:
+        // renames column to
         columnName = "Size";
         gui.renameColumn(tblCProducts, columnNumber, columnName);
+        // Loads all the footwear to a hashmap
         shoes = db.loadAllFootwear();
-       
-        DefaultTableModel dtm = (DefaultTableModel)tblCProducts.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
-
-        String [] data = new String[5];
+        
+        // Gets the table and converts it into a model
+        DefaultTableModel dtm = (DefaultTableModel) tblCProducts.getModel();
+        
+        
+        // Creates a string array for the collumns
+        // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
+        String[] data = new String[5];
         gui.populateShoes(data, shoes, dtm, tblCProducts);
-        
-        
-        
-        
-        
-        //Creates a default list model
-//        DefaultListModel dlmF = new DefaultListModel();
-//        //Cycles through all the shoes in the hashmap
-//        shoes.values().forEach((c) -> {
-//            // Adds the shoes object to the default list model
-//            dlmF.addElement(c);
-//           
-//        });
-//        //Shows a list of shoes
-//        listProducts.setModel(dlmF);
+
+
+
     }//GEN-LAST:event_rbFootwearActionPerformed
 
     private void comboQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboQuantityActionPerformed
         // TODO add your handling code here:
         
-        
-     
         DefaultComboBoxModel jcb = new DefaultComboBoxModel();
-        jcb = (DefaultComboBoxModel)comboQuantity.getModel();
-        String itemQ = (String)jcb.getSelectedItem();
+        // get the number selected from the combo box
+        //Covert it from a string into an integer
+        jcb = (DefaultComboBoxModel) comboQuantity.getModel();
+        String itemQ = (String) jcb.getSelectedItem();
         itemTaken = Integer.parseInt(itemQ);
-        
-        
+
+
     }//GEN-LAST:event_comboQuantityActionPerformed
 
     private void btnAddProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductsActionPerformed
         // TODO add your handling code here:
         String orderName;
         int productId;
-        boolean isClothing;
         int quantity;
         double lineTotal;
         action = "added";
+        // if the clothing radio button is selected
         if (rbClothing.isSelected())
         {
-
+            // Convert the selected row into a clothing object
             Clothing cloth = gui.findClothing(tblCProducts);
-            isClothing = true;
             
+            // If clothing  equals error text this means a row has not been selcted
             if (cloth.getProductName().equals(error))
             {
+                // outputs a warning  that clothing has not been added.
                 gui.warning(lblResult, cloth, action);
             }
             else
             {
-                if (itemTaken == 0 || cloth.getStockLevel() == 0)
+                // the quanity selected it greater than the current stock level
+                if (itemTaken > cloth.getStockLevel())
                 {
+                    // warning label notifying user
                     lblResult.setText("No clothing left in stock or quantity is equal to zero");
                 }
-
+                
+                // if stocklevel is greater or equal to item taken
                 else if (cloth.getStockLevel() >= itemTaken)
                 {
+                    // the stocklevel is reduced by the item taken
+                    // the stock level is edited on the database
+                    // hashmap loads all clothing again since stock level has changed
                     int nStockLevel = cloth.getStockLevel() - itemTaken;
                     cloth.setStockLevel(nStockLevel);
                     db.editClothing(cloth);
@@ -338,15 +350,14 @@ public class CBrowseProducts extends javax.swing.JFrame {
 
                     orderName = cloth.getProductName();
                     productId = cloth.getProductID();
-                    
+
                     quantity = itemTaken;
                     lineTotal = quantity * cloth.getPrice();
-
-                    db.saveOrderLine(productId, orderName,  quantity, lineTotal);
-
+                    // orderline saved 
+                    db.saveOrderLine(productId, orderName, quantity, lineTotal);
+                    // success text
                     lblResult.setText("Clothing added to order line");
 
-                    
                 }
 
                 else
@@ -356,26 +367,32 @@ public class CBrowseProducts extends javax.swing.JFrame {
             }
 
         }
-        
+        // if the footwear radio button is selected
         else if (rbFootwear.isSelected())
         {
-
+            // Convert the selected row into a footwear object
             Footwear shoe = gui.findFootwear(tblCProducts);
-            //Clothing selected is false
             
+            // If footwear  equals error text this means a row has not been selcted
             if (shoe.getProductName().equals(error))
             {
+                // outputs a warning  that clothing has not been added.
                 gui.warning(lblResult, shoe, action);
             }
             else
             {
-                if (itemTaken == 0 || shoe.getStockLevel() == 0)
+                // the quanity selected it greater than the current stock level
+                if (itemTaken > shoe.getStockLevel())
                 {
-                    lblResult.setText("No clothing left in stock or quantity is equal to zero.");
+                    // warning label notifying user
+                    lblResult.setText("No footwear left in stock or quantity is equal to zero.");
                 }
-
+                // if stocklevel is greater or equal to item taken
                 else if (shoe.getStockLevel() >= itemTaken)
                 {
+                    // the stocklevel is reduced by the item taken
+                    // the stock level is edited on the database
+                    // hashmap loads all clothing again since stock level has changed
                     int nStockLevel = shoe.getStockLevel() - itemTaken;
                     shoe.setStockLevel(nStockLevel);
                     System.out.println("" + shoe.getStockLevel());
@@ -384,15 +401,14 @@ public class CBrowseProducts extends javax.swing.JFrame {
 
                     orderName = shoe.getProductName();
                     productId = shoe.getProductID();
-                    
+
                     quantity = itemTaken;
                     lineTotal = quantity * shoe.getPrice();
+                    // orderline saved 
                     db.saveOrderLine(productId, orderName, quantity, lineTotal);
-                    
-
+                    // success text
                     lblResult.setText("Footwear added to order line");
 
-                    
                 }
 
                 else if (itemTaken == 0)
@@ -402,7 +418,7 @@ public class CBrowseProducts extends javax.swing.JFrame {
 
                 else if (shoe.getStockLevel() == 0)
                 {
-                    lblResult.setText("Clothing out of stock");
+                    lblResult.setText("Footwear out of stock");
                 }
 
                 else
@@ -421,6 +437,7 @@ public class CBrowseProducts extends javax.swing.JFrame {
 
     private void btnCHomePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCHomePageActionPerformed
         // TODO add your handling code here:
+        // passes customer to Chome
         CHomeGUI ch = new CHomeGUI(cust);
         this.dispose();
         ch.setVisible(true);
@@ -428,6 +445,7 @@ public class CBrowseProducts extends javax.swing.JFrame {
 
     private void btnCViewBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCViewBasketActionPerformed
         // TODO add your handling code here:
+        //Passes a hashmap of Orderlines and a customer object to CViewBasket
         CViewOrderLines cvol = new CViewOrderLines(ols, cust);
         this.dispose();
         cvol.setVisible(true);
@@ -436,34 +454,48 @@ public class CBrowseProducts extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(CBrowseProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(CBrowseProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(CBrowseProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(CBrowseProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new CBrowseProducts().setVisible(true);
             }
         });

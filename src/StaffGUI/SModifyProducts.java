@@ -23,19 +23,21 @@ import javax.swing.table.TableColumnModel;
  * @author 30137568
  */
 //Global Variables
-public class SModifyProducts extends javax.swing.JFrame {
-HashMap<Integer, Clothing> clothes = new HashMap<>();
-HashMap<Integer, Footwear> shoes = new HashMap<>();
- String error = "EMPTY1971";
-String action = "";
-int columnNumber = 4;
-String columnName = "";
-String [] data = new String[5];
-Clothing cloth = new Clothing();
-Footwear shoe = new Footwear();
-boolean isClothing = false;
-DBManager db = new DBManager();
-GUI gui = new GUI();
+public class SModifyProducts extends javax.swing.JFrame
+{
+    // Global Variables
+    HashMap<Integer, Clothing> clothes = new HashMap<>();
+    HashMap<Integer, Footwear> shoes = new HashMap<>();
+    String error = "EMPTY1971";
+    String action = "";
+    int columnNumber = 4;
+    String columnName = "";
+    String[] data = new String[5];
+    Clothing cloth = new Clothing();
+    Footwear shoe = new Footwear();
+    boolean isClothing = false;
+    DBManager db = new DBManager();
+    GUI gui = new GUI();
 
     //Group radio buttons together so they can go from one category to another
     private void groupButton()
@@ -48,18 +50,20 @@ GUI gui = new GUI();
     /**
      * Creates new form SViewProducts
      */
-    public SModifyProducts() {
+    public SModifyProducts()
+    {
         initComponents();
         // Grouping Radio Buttons
         groupButton();
     }
-    
-     public SModifyProducts(HashMap<Integer,Clothing> cl, HashMap<Integer,Footwear> ft) {
+
+    public SModifyProducts(HashMap<Integer, Clothing> cl, HashMap<Integer, Footwear> ft)
+    {
         initComponents();
         //Passed in global variables equal parameters passed in
         clothes = cl;
         shoes = ft;
-        
+
         // Grouping Radio Buttons
         groupButton();
     }
@@ -267,7 +271,7 @@ GUI gui = new GUI();
     private void btnSHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSHomeActionPerformed
         // TODO add your handling code here:
         //Takes you back to the staff home page
-        SHomeGUI  sHome = new SHomeGUI();
+        SHomeGUI sHome = new SHomeGUI();
         this.dispose();
         sHome.setVisible(true);
     }//GEN-LAST:event_btnSHomeActionPerformed
@@ -281,96 +285,44 @@ GUI gui = new GUI();
 
     private void rbClothingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbClothingActionPerformed
         // TODO add your handling code here:
-        // Loads all clothing into the hashmap
+        // renames column to Mesurement
         columnName = "Measurement";
         gui.renameColumn(tblSProducts, 4, columnName);
-//        JTableHeader th = tblSProducts.getTableHeader();
-//        TableColumnModel tcm = th.getColumnModel();
-//        TableColumn tc = tcm.getColumn(4);
-//        tc.setHeaderValue("Measurement");
-//        th.repaint();
-        
-        
+
+        // loads all clothing from the  database into a hashmap
         clothes = db.loadAllClothing();
-        DefaultTableModel dtm = (DefaultTableModel)tblSProducts.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
-//        if (dtm.getRowCount() > 0)
-//        {
-//            dtm.setNumRows(0);
-//        }
-        
-        String [] data = new String[5];
+        DefaultTableModel dtm = (DefaultTableModel) tblSProducts.getModel();
+
+        // Creates a string array for the collumn
+        // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
+        String[] data = new String[5];
         gui.populateClothes(data, clothes, dtm, tblSProducts);
-//        for(int key : clothes.keySet())
-//        {
-//            data[0] = ""+ clothes.get(key).getProductID();
-//            data[1] = "" + clothes.get(key).getProductName();
-//            data[2] = "" + clothes.get(key).getPrice();
-//            data[3] = "" +clothes.get(key).getStockLevel();
-//            data[4] = clothes.get(key).getMeasurement();
-//            
-//            dtm.addRow(data);
-//        }
-        
-//        //Creates a default list model
-//        DefaultListModel dlmC = new DefaultListModel();
-//        //Cycles through all the clothes in the hashmap
-//        clothes.values().forEach((c) -> {
-//            // Adds the clothing object to the default list model
-//            dlmC.addElement(c);
-//           
-//        });
-//        // Shows the list of all the clothes
-//        listProducts.setModel(dlmC);
+
     }//GEN-LAST:event_rbClothingActionPerformed
 
     private void rbFootwearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFootwearActionPerformed
-        
+        // renames column to Size
         columnName = "Size";
         gui.renameColumn(tblSProducts, columnNumber, columnName);
-//        JTableHeader th = tblSProducts.getTableHeader();
-//        TableColumnModel tcm = th.getColumnModel();
-//        TableColumn tc = tcm.getColumn(4);
-//        tc.setHeaderValue("Size");
-//        th.repaint();
-        
+
+        // load all footwear from the database to the hashmap
         shoes = db.loadAllFootwear();
+
+        DefaultTableModel dtm = (DefaultTableModel) tblSProducts.getModel();
        
-        DefaultTableModel dtm = (DefaultTableModel)tblSProducts.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
-        
-        int row = 0;
+
+        // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
         gui.populateShoes(data, shoes, dtm, tblSProducts);
-//        for(int key : shoes.keySet())
-//        {
-//            data[0] = "" + shoes.get(key).getProductID();
-//            data[1] = "" + shoes.get(key).getProductName();
-//            data[2] = "" + shoes.get(key).getPrice();
-//            data[3] = "" + shoes.get(key).getStockLevel();
-//            data[4] = "" + shoes.get(key).getSize();
-//            
-//            dtm.addRow(data);
-//        }
-        
-        // Loads all footwear from the database into the hashmap
-//        shoes = db.loadAllFootwear();
-//        //Creates a default list model
-//        DefaultListModel dlmF = new DefaultListModel();
-//        //Cycles through all the shoes in the hashmap
-//        shoes.values().forEach((c) -> {
-//            // Adds the shoes object to the default list model
-//            dlmF.addElement(c);
-//           
-//        });
-//        //Shows a list of shoes
-//        listProducts.setModel(dlmF);
+
     }//GEN-LAST:event_rbFootwearActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // If the clothing radio button is selected
         action = "edited";
+        // if the clothing radio button is selected
         if (rbClothing.isSelected())
         {
+            // Convert the selected row into a clothing object
             cloth = gui.findClothing(tblSProducts);
             isClothing = true;
 
@@ -378,33 +330,37 @@ GUI gui = new GUI();
         // If the footwear radio button is selected
         if (rbFootwear.isSelected())
         {
-            //tblSProducts.s
-
+            
+            // Convert the selected row into a footwear object
             shoe = gui.findFootwear(tblSProducts);
-
             isClothing = false;
 
         }
-
+        // if niether clothing or footwear radio button is selected
         if (!rbClothing.isSelected() && !rbFootwear.isSelected())
         {
             lblResults.setText("Please select either the Clothing or Footwear radio button");
         }
         else
         {
-            if (cloth.getProductName().equals(error)|| shoe.getProductName().equals(error))
+            // If footwear or clothing equals error text this means a row has not been selcted
+            if (cloth.getProductName().equals(error) || shoe.getProductName().equals(error))
             {
                 if (rbClothing.isSelected())
                 {
+                    // outputs a warning that clothing has not been edited.
                     gui.warning(lblResults, cloth, action);
                 }
                 else
                 {
+                    // outputs a warning that footwear has not been edited.
                     gui.warning(lblResults, shoe, action);
                 }
             }
             else
             {
+                // passes the objects isClothing, cloth and shoe into SProductEdit
+                // takes you to the SProductEdit
                 SProductEdit spe = new SProductEdit(isClothing, cloth, shoe);
                 this.dispose();
                 spe.setVisible(true);
@@ -418,17 +374,21 @@ GUI gui = new GUI();
         // TODO add your handling code here:
         // If the clothing radio button is selected
         action = "deleted";
-        DefaultTableModel dtm = (DefaultTableModel)tblSProducts.getModel();
-        if(rbClothing.isSelected())
+        DefaultTableModel dtm = (DefaultTableModel) tblSProducts.getModel();
+        if (rbClothing.isSelected())
         {
             cloth = gui.findClothing(tblSProducts);
-
-            if(cloth.getProductName().equals(error))
-            {
+            // If clothing equals error text this means a row has not been selcted
+            if (cloth.getProductName().equals(error))
+            { 
+                // outputs a warning that clothing has not been deleted.
                 gui.warning(lblResults, cloth, action);
             }
             else
             {
+                // Deletes clothing from the database, loads the clothing from the database
+                // Outputs that clothing has been deleted
+                // Populates table
                 db.deleteClothing(cloth);
                 clothes = db.loadAllClothing();
                 gui.success(lblResults, cloth, action);
@@ -437,25 +397,29 @@ GUI gui = new GUI();
             }
             isClothing = true;
         }
-        
+
         // If the footwear radio button is selected
-        if(rbFootwear.isSelected())
+        if (rbFootwear.isSelected())
         {
             shoe = gui.findFootwear(tblSProducts);
-            if(shoe.getProductName().equals(error))
+            // If footwear equals error text this means a row has not been selcted
+            if (shoe.getProductName().equals(error))
             {
+                // outputs a warning that clothing has not been deleted.
                 gui.warning(lblResults, shoe, action);
             }
             else
             {
+                // Deletes clothing from the database, loads the clothing from the database
+                // Outputs that clothing has been deleted
+                // Populates table
                 db.deleteClothing(cloth);
                 shoes = db.loadAllFootwear();
                 gui.success(lblResults, shoe, action);
-                
                 gui.populateShoes(data, shoes, dtm, tblSProducts);
 
             }
-            
+
             //Clothing selected is true
             isClothing = false;
         }
@@ -464,26 +428,38 @@ GUI gui = new GUI();
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(SModifyProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(SModifyProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(SModifyProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(SModifyProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -504,8 +480,10 @@ GUI gui = new GUI();
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new SModifyProducts().setVisible(true);
             }
         });

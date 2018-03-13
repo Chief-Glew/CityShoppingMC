@@ -14,57 +14,59 @@ import java.util.HashMap;
  *
  * @author mcarr
  */
-public class SProductEdit extends javax.swing.JFrame {
+public class SProductEdit extends javax.swing.JFrame
+{
 
 //Global Variables    
-boolean isClothing;
-DBManager db = new DBManager();
-Clothing cloth = new Clothing();
-Footwear shoe = new Footwear();
-HashMap<Integer, Clothing> clothes = new HashMap<>();
-HashMap<Integer, Footwear> shoes = new HashMap<>();
+    boolean isClothing;
+    DBManager db = new DBManager();
+    Clothing cloth = new Clothing();
+    Footwear shoe = new Footwear();
+    HashMap<Integer, Clothing> clothes = new HashMap<>();
+    HashMap<Integer, Footwear> shoes = new HashMap<>();
+
     /**
      * Creates new form SProductEdit
      */
-    public SProductEdit() {
+    public SProductEdit()
+    {
         initComponents();
     }
-    
+
 // Passed in Parameters to Constructor
-     public SProductEdit(boolean isC, Clothing c, Footwear f) {
+    public SProductEdit(boolean isC, Clothing c, Footwear f)
+    {
         initComponents();
         //Global variables equal parameters passed in
         isClothing = isC;
         cloth = c;
         shoe = f;
-        
+
         // If is clothing is true
-        if(isClothing == true)
+        if (isClothing == true)
         {
             // label text is changed to Measurement
             lblChoice.setText("Measurement: ");
-            
+
             // Get the clothing object values and put them in the text fields
             txtProductName.setText(cloth.getProductName());
             txtPrice.setText("" + cloth.getPrice() + "");
             txtStockLevel.setText("" + cloth.getStockLevel() + "");
             txtChoice.setText(cloth.getMeasurement());
         }
-        
+
         // If is clothing is false
         else
         {
-             // label text is changed to Size
+            // label text is changed to Size
             lblChoice.setText("Size");
             // Get the footwear object values and put them in the text fields
             txtProductName.setText(shoe.getProductName());
             txtPrice.setText("" + shoe.getPrice() + "");
             txtStockLevel.setText("" + shoe.getStockLevel() + "");
-            txtChoice.setText("" + shoe.getSize() + "" );
+            txtChoice.setText("" + shoe.getSize() + "");
         }
-        
-        
-        
+
     }
 
     /*
@@ -231,92 +233,92 @@ HashMap<Integer, Footwear> shoes = new HashMap<>();
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        
+
         // If is clothing is true
-        if(isClothing == true)
+        if (isClothing == true)
         {
             //local variables
-            String productName,price,stockLevel, measurement;
+            String productName, price, stockLevel, measurement;
             int productId;
-            
+
             // productId is taken from theglobal variable and getting the productId attribute 
             productId = cloth.getProductID();
-           
+
             //Taking data from text boxes and adding them to variables
             productName = txtProductName.getText();
             price = txtPrice.getText();
             stockLevel = txtStockLevel.getText();
             measurement = txtChoice.getText();
-            
+
             // Checks to see if user input for cPrice and cStocklevel are the right data type
             // They can be converted to a double and integer respectivel
-            try 
+            try
             {
-               //Converts the string variable into a double 
-               double cPrice = Double.parseDouble(price);
-               //Converts the string variable into a integer
-               int cStockLevel = Integer.parseInt(stockLevel);
-               // Creates a new clothing object
-               Clothing c = new Clothing(productId, productName, cPrice, cStockLevel, measurement);
-               // Adds it to the hashmap using the product name is  the key
-               clothes.put(productId, c);
-               cloth = c;
-               // Edits clothing to the database using the clothing object
-               db.editClothing(cloth);
-               // Loads data from the database to the hashmap that uses productId as the key
-               clothes = db.loadAllClothing();
-               // Label to show its been edited
-               lblResult.setText("Clothing has been edited.");
-               
+                //Converts the string variable into a double 
+                double cPrice = Double.parseDouble(price);
+                //Converts the string variable into a integer
+                int cStockLevel = Integer.parseInt(stockLevel);
+                // Creates a new clothing object
+                Clothing c = new Clothing(productId, productName, cPrice, cStockLevel, measurement);
+                // Adds it to the hashmap using the product name is  the key
+                clothes.put(productId, c);
+                cloth = c;
+                // Edits clothing to the database using the clothing object
+                db.editClothing(cloth);
+                // Loads data from the database to the hashmap that uses productId as the key
+                clothes = db.loadAllClothing();
+                // Label to show its been edited
+                lblResult.setText("Clothing has been edited.");
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //label to show it has not been edited
                 lblResult.setText("Clothing has not been edited.");
             }
         }
-        
+
         else
         {
             //local variables
-            String productName,price,stockLevel, size;
+            String productName, price, stockLevel, size;
             int productId;
-            
+
             // productId is taken from theglobal variable and getting the productId attribute
             productId = shoe.getProductID();
-            
+
             //Taking data from text boxes and adding them to variables
             productName = txtProductName.getText();
             price = txtPrice.getText();
             stockLevel = txtStockLevel.getText();
             size = txtChoice.getText();
-            
-             // Checks to see if user input for fPrice fStocklevel and fSize are the right data type
-             // They can be converted to a double and integer respectively
-            try 
+
+            // Checks to see if user input for fPrice fStocklevel and fSize are the right data type
+            // They can be converted to a double and integer respectively
+            try
             {
-               //Converts the string variable into a double
-               double fPrice = Double.parseDouble(price);
-               
-               int fStockLevel = Integer.parseInt(stockLevel);
-               int fSize = Integer.parseInt(stockLevel);
-               //Converts the string variable into a integer
-               Footwear f = new Footwear(productId, productName, fPrice, fStockLevel,fSize);
-               // Creates a new footwear object
-               shoes.put(productId, f);
-               
-               shoe = f;
-               // Edits footwear to the database using the footwear object
-               db.editFootwear(shoe);
-               // Loads data from the database to the hashmap that uses productId as the key
-               shoes = db.loadAllFootwear();
-               // Label to show its been added
-               lblResult.setText("Footwear has been edited.");
-               
+                //Converts the string variable into a double
+                double fPrice = Double.parseDouble(price);
+
+                int fStockLevel = Integer.parseInt(stockLevel);
+                int fSize = Integer.parseInt(stockLevel);
+                //Converts the string variable into a integer
+                Footwear f = new Footwear(productId, productName, fPrice, fStockLevel, fSize);
+                // Creates a new footwear object
+                shoes.put(productId, f);
+
+                shoe = f;
+                // Edits footwear to the database using the footwear object
+                db.editFootwear(shoe);
+                // Loads data from the database to the hashmap that uses productId as the key
+                shoes = db.loadAllFootwear();
+                // Label to show its been added
+                lblResult.setText("Footwear has been edited.");
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                
+
                 lblResult.setText("Footwear has not been edited.");
             }
         }
@@ -332,34 +334,48 @@ HashMap<Integer, Footwear> shoes = new HashMap<>();
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(SProductEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(SProductEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(SProductEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(SProductEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new SProductEdit().setVisible(true);
             }
         });

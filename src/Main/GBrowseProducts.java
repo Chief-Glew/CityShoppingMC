@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Main;
+
 import CustomerGUI.*;
 import Classes.*;
 import java.util.HashMap;
@@ -20,19 +21,21 @@ import javax.swing.table.TableColumnModel;
  *
  * @author mcarr
  */
-public class GBrowseProducts extends javax.swing.JFrame {
+public class GBrowseProducts extends javax.swing.JFrame
+{
 
     DBManager db = new DBManager();
-   
+
     GUI gui = new GUI();
     String action = "";
     String error = "EMPTY1971";
     HashMap<Integer, Clothing> clothes = new HashMap<>();
     HashMap<Integer, Footwear> shoes = new HashMap<>();
-    
+
     int itemTaken;
     int columnNumber = 4;
     String columnName = "";
+
     /**
      * Creates new form ViewProducts
      */
@@ -41,18 +44,16 @@ public class GBrowseProducts extends javax.swing.JFrame {
         ButtonGroup bg2 = new ButtonGroup();
         bg2.add(rbClothing);
         bg2.add(rbFootwear);
-        
+
     }
-    
-    public GBrowseProducts() 
+
+    public GBrowseProducts()
     {
         initComponents();
         groupButton();
         clothes = db.loadAllClothing();
         shoes = db.loadAllFootwear();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -252,9 +253,9 @@ public class GBrowseProducts extends javax.swing.JFrame {
         columnName = "Measurement";
         gui.renameColumn(tblCProducts, columnNumber, columnName);
         clothes = db.loadAllClothing();
-        DefaultTableModel dtm = (DefaultTableModel)tblCProducts.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
-        String [] data = new String[5];
+        DefaultTableModel dtm = (DefaultTableModel) tblCProducts.getModel();
+        
+        String[] data = new String[5];
         gui.populateClothes(data, clothes, dtm, tblCProducts);
     }//GEN-LAST:event_rbClothingActionPerformed
 
@@ -263,47 +264,30 @@ public class GBrowseProducts extends javax.swing.JFrame {
         columnName = "Size";
         gui.renameColumn(tblCProducts, columnNumber, columnName);
         shoes = db.loadAllFootwear();
-       
-        DefaultTableModel dtm = (DefaultTableModel)tblCProducts.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
 
-        String [] data = new String[5];
+        DefaultTableModel dtm = (DefaultTableModel) tblCProducts.getModel();
+       
+
+        String[] data = new String[5];
         gui.populateShoes(data, shoes, dtm, tblCProducts);
-        
-        
-        
-        
-        
-        //Creates a default list model
-//        DefaultListModel dlmF = new DefaultListModel();
-//        //Cycles through all the shoes in the hashmap
-//        shoes.values().forEach((c) -> {
-//            // Adds the shoes object to the default list model
-//            dlmF.addElement(c);
-//           
-//        });
-//        //Shows a list of shoes
-//        listProducts.setModel(dlmF);
     }//GEN-LAST:event_rbFootwearActionPerformed
 
     private void comboQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboQuantityActionPerformed
         // TODO add your handling code here:
-        
-        
-     
+
         DefaultComboBoxModel jcb = new DefaultComboBoxModel();
-        jcb = (DefaultComboBoxModel)comboQuantity.getModel();
-        String itemQ = (String)jcb.getSelectedItem();
+        jcb = (DefaultComboBoxModel) comboQuantity.getModel();
+        String itemQ = (String) jcb.getSelectedItem();
         itemTaken = Integer.parseInt(itemQ);
-        
-        
+
+
     }//GEN-LAST:event_comboQuantityActionPerformed
 
     private void btnAddProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductsActionPerformed
         // TODO add your handling code here:
-        
+
         boolean isClothing;
-        
+
         action = "added";
         String guest = "Must be logged in to add products to basket. \nPlease login or register.";
         if (rbClothing.isSelected())
@@ -311,7 +295,7 @@ public class GBrowseProducts extends javax.swing.JFrame {
 
             Clothing cloth = gui.findClothing(tblCProducts);
             isClothing = true;
-            
+
             if (cloth.getProductName().equals(error))
             {
                 gui.warning(lblResult, cloth, action);
@@ -335,7 +319,7 @@ public class GBrowseProducts extends javax.swing.JFrame {
             }
 
         }
-        
+
         else if (rbFootwear.isSelected())
         {
 
@@ -355,11 +339,9 @@ public class GBrowseProducts extends javax.swing.JFrame {
 
                 else if (shoe.getStockLevel() >= itemTaken)
                 {
-                    
 
                     lblResult.setText(guest);
 
-                    
                 }
 
                 else if (itemTaken == 0)
@@ -388,7 +370,7 @@ public class GBrowseProducts extends javax.swing.JFrame {
 
     private void btnCHomePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCHomePageActionPerformed
         // TODO add your handling code here:
-        MenuGUI menu= new MenuGUI();
+        MenuGUI menu = new MenuGUI();
         this.dispose();
         menu.setVisible(true);
     }//GEN-LAST:event_btnCHomePageActionPerformed
@@ -396,26 +378,38 @@ public class GBrowseProducts extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(GBrowseProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(GBrowseProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(GBrowseProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(GBrowseProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -424,8 +418,10 @@ public class GBrowseProducts extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new GBrowseProducts().setVisible(true);
             }
         });

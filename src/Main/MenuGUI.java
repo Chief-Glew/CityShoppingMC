@@ -14,30 +14,34 @@ import CustomerGUI.CLoginGUI;
  *
  * @author 30137568
  */
-public class MenuGUI extends javax.swing.JFrame {
+public class MenuGUI extends javax.swing.JFrame
+{
+
     // Global Variables
     // Add new hashmap and database
     // Load customers from database to hasmap
     HashMap<Integer, Customer> customers;
     DBManager db = new DBManager();
+
     /**
      * Creates new form MenuGUI
      */
-    public MenuGUI() {
+    public MenuGUI()
+    {
         initComponents();
-        
+
         customers = db.loadAllCustomers();
-        
+
         Customer cust = new Customer();
         String name = cust.getClass().getName();
         System.out.println(name); //Output Classes.Customer
     }
-    
-    public MenuGUI(HashMap <Integer,Customer> custs)
+
+    public MenuGUI(HashMap<Integer, Customer> custs)
     {
         initComponents();
         //Passed in global variables equal parameters passed in
-       
+
         // Load customer database to hashmap
         customers = db.loadAllCustomers();
     }
@@ -143,26 +147,38 @@ public class MenuGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(MenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(MenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(MenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(MenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -175,8 +191,10 @@ public class MenuGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new MenuGUI().setVisible(true);
             }
         });

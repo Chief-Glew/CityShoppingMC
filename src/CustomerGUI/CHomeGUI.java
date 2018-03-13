@@ -13,7 +13,8 @@ import java.util.HashMap;
  *
  * @author 30137568
  */
-public class CHomeGUI extends javax.swing.JFrame {
+public class CHomeGUI extends javax.swing.JFrame
+{
 
     /**
      * Creates new form CustomerHomeGUI
@@ -22,34 +23,34 @@ public class CHomeGUI extends javax.swing.JFrame {
     Customer loggedInUser = new Customer();
     HashMap<Integer, Customer> customers = new HashMap<>();
     HashMap<Integer, OrderLine> ols = new HashMap<>();
-    
-    public CHomeGUI() {
+
+    public CHomeGUI()
+    {
         initComponents();
     }
-    
-    public CHomeGUI(Customer cust, HashMap <Integer,Customer> custs ) 
+
+    public CHomeGUI(Customer cust, HashMap<Integer, Customer> custs)
     {
         initComponents();
         loggedInUser = cust;
         //Passed in global variables equal parameters passed in
         loggedInUser = db.loadCustomer(loggedInUser.getUsername());
         customers = custs;
-        
-        
+
         // Welcome text for user
-        lblWelcome.setText( loggedInUser.getFirstName()+ "! " +loggedInUser.displayGreeting());
-        
+        lblWelcome.setText(loggedInUser.getFirstName() + "! " + loggedInUser.displayGreeting());
+
     }
-    
-    public CHomeGUI(Customer cust ) 
+
+    public CHomeGUI(Customer cust)
     {
         initComponents();
         //Passed in global variables equal parameters passed in
         loggedInUser = cust;
         customers = db.loadAllCustomers();
         // Welcome text for user
-        lblWelcome.setText( loggedInUser.getFirstName()+ "! " +loggedInUser.displayGreeting());
-        
+        lblWelcome.setText(loggedInUser.getFirstName() + "! " + loggedInUser.displayGreeting());
+
     }
 
     /**
@@ -197,7 +198,7 @@ public class CHomeGUI extends javax.swing.JFrame {
 
     private void btnEditDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditDetailsActionPerformed
         // Sends the customer and hashmap of customers to the Customer Edit page
-        CEditDetailsGUI edit = new CEditDetailsGUI(customers,loggedInUser);
+        CEditDetailsGUI edit = new CEditDetailsGUI(customers, loggedInUser);
         this.dispose();
         edit.setVisible(true);
     }//GEN-LAST:event_btnEditDetailsActionPerformed
@@ -225,26 +226,38 @@ public class CHomeGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(CHomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(CHomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(CHomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(CHomeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -265,8 +278,10 @@ public class CHomeGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new CHomeGUI().setVisible(true);
             }
         });

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package CustomerGUI;
+
 import Classes.*;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
@@ -13,28 +14,37 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author mcarr
  */
-public class CViewPlacedOrderLines extends javax.swing.JFrame {
+public class CViewPlacedOrderLines extends javax.swing.JFrame
+{
+    //Global Variables
     DBManager db = new DBManager();
     Customer cust = new Customer();
     GUI gui = new GUI();
-  
+
     HashMap<Integer, OrderLine> orderLines = new HashMap<>();
+
     /**
      * Creates new form CViewPlacedOrderLines
      */
-    public CViewPlacedOrderLines() {
+    public CViewPlacedOrderLines()
+    {
         initComponents();
     }
-    
-    public CViewPlacedOrderLines(Customer cust, Order o) {
+
+    public CViewPlacedOrderLines(Customer cust, Order o)
+    {
         initComponents();
+        // Variables equal parameters passed in
         this.cust = cust;
         Order order = o;
+        // load orderlines that have the same orderID
         orderLines = db.loadAllOrderLinesOrderID(order.getOrderId());
         
-        DefaultTableModel dtm = (DefaultTableModel)tblCOrderLineView.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
-        String [] data = new String[4];
+        // Gets table model from table
+        DefaultTableModel dtm = (DefaultTableModel) tblCOrderLineView.getModel();
+         // Creates a string array for the collumn
+        // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
+        String[] data = new String[4];
         gui.populateOrderLines(data, orderLines, dtm, tblCOrderLineView);// this needs changed
     }
 
@@ -130,6 +140,7 @@ public class CViewPlacedOrderLines extends javax.swing.JFrame {
 
     private void btnOrdersPlacedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdersPlacedActionPerformed
         // TODO add your handling code here:
+        // Goes back to CViewPlacedOrders form and passes in the object customer
         CViewPlacedOrders cvpo = new CViewPlacedOrders(cust);
         this.dispose();
         cvpo.setVisible(true);
@@ -138,33 +149,47 @@ public class CViewPlacedOrderLines extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(CViewPlacedOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(CViewPlacedOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(CViewPlacedOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(CViewPlacedOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new CViewPlacedOrderLines().setVisible(true);
             }
         });

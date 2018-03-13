@@ -13,7 +13,9 @@ import javax.swing.ButtonGroup;
  *
  * @author 30137568
  */
-public class SAddProduct extends javax.swing.JFrame {
+public class SAddProduct extends javax.swing.JFrame
+{
+
     // Gloabal Variables
     HashMap<String, Clothing> clothes = new HashMap<>();
     HashMap<String, Footwear> shoes = new HashMap<>();
@@ -27,7 +29,7 @@ public class SAddProduct extends javax.swing.JFrame {
     Boolean isClothing = false;
     DBManager db = new DBManager();
     boolean isFound = false;
-    
+
     //Group radio buttons together so they can go from one category to another
     private void groupButton()
     {
@@ -39,7 +41,8 @@ public class SAddProduct extends javax.swing.JFrame {
     /**
      * Creates new form SAddProduct
      */
-    public SAddProduct() {
+    public SAddProduct()
+    {
         initComponents();
         // Grouping Radio Buttons
         groupButton();
@@ -49,10 +52,10 @@ public class SAddProduct extends javax.swing.JFrame {
         txtStockLevel.setVisible(false);
         txtChoice.setVisible(false);
         
+        // loads all clothing and footwear
         iClothes = db.loadAllClothing();
         iShoes = db.loadAllFootwear();
-        
-       
+
     }
 
     /**
@@ -62,7 +65,8 @@ public class SAddProduct extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -89,15 +93,19 @@ public class SAddProduct extends javax.swing.JFrame {
         jLabel2.setText("Type Of Product");
 
         rbClothing.setText("Clothing");
-        rbClothing.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        rbClothing.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 rbClothingActionPerformed(evt);
             }
         });
 
         rbFootwear.setText("Footwear");
-        rbFootwear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        rbFootwear.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 rbFootwearActionPerformed(evt);
             }
         });
@@ -107,8 +115,10 @@ public class SAddProduct extends javax.swing.JFrame {
         txtName.setMinimumSize(new java.awt.Dimension(6, 50));
 
         txtPrice.setMinimumSize(new java.awt.Dimension(6, 50));
-        txtPrice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtPrice.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 txtPriceActionPerformed(evt);
             }
         });
@@ -119,29 +129,37 @@ public class SAddProduct extends javax.swing.JFrame {
 
         jLabel5.setText("Stock Level");
 
-        txtChoice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtChoice.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 txtChoiceActionPerformed(evt);
             }
         });
 
         btnAdd.setText("Submit");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAdd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnAddActionPerformed(evt);
             }
         });
 
         btnClear.setText("Clear");
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnClear.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnClearActionPerformed(evt);
             }
         });
 
         btnBack.setText("Return To Product Select");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnBack.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnBackActionPerformed(evt);
             }
         });
@@ -190,11 +208,9 @@ public class SAddProduct extends javax.swing.JFrame {
                                         .addComponent(txtStockLevel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING))))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(lblResult, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                                        .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING)))))))
+                .addContainerGap(299, Short.MAX_VALUE))
+            .addComponent(lblResult, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +256,7 @@ public class SAddProduct extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +303,7 @@ public class SAddProduct extends javax.swing.JFrame {
         // If the clothing radio button is selected
         if (rbClothing.isSelected())
         {
-            
+
             //Taking data from text boxes and adding them to variables
             isClothing = true;
             String cName = txtName.getText();
@@ -295,60 +311,57 @@ public class SAddProduct extends javax.swing.JFrame {
             String stockLevel = txtStockLevel.getText();
             //double cPrice = Double.parseDouble(price);
             String cMeasurement = txtChoice.getText();
-            
-            
+
             // Makes sure all text fields are filled
-            if(cName.equals("")&& price.equals("")&& stockLevel.equals("") && cMeasurement.equals(""))
+            if (cName.equals("") || price.equals("") || stockLevel.equals("") || cMeasurement.equals(""))
             {
                 lblResult.setText("Please enter an input in all fields");
             }
-            
+
             else
             {
                 // Checks to see if user input for cPrice and cStocklevel are the right data type
                 // They can be converted to a double and integer respectively
                 try
                 {
-                  for(Clothing c : iClothes.values())
-                  {
-                      if(c.getProductName().equals(cName))
-                      {
-                          isFound = true;
-                          break;
-                      }
-                  }
-                  
-                  if(isFound == false)
-                  {
-                    //Converts the string variable into a double
-                    double cPrice = Double.parseDouble(price);
-                    //Converts the string variable into a integer
-                    int cStockLevel = Integer.parseInt(stockLevel);
-                    
-                    // Creates a new clothing object
-                    
-                   
-                    Clothing cloth = new Clothing(cName, cPrice, cStockLevel, cMeasurement);
-                    // Adds it to the hashmap using the product name is  the key
-                    clothes.put(cName, cloth);
-                    
-                    // Saves clothing to the database using the clothing object
-                    db.saveClothing(cloth);
-                    // Loads data from the database to the hashmap that uses productId as the key
-                    iClothes = db.loadAllClothing();
-                    // Label to show its been added
-                    gui.success(lblResult, cloth, action);
-                    isFound = false;
-                  }
-                  
-                  else
-                  {
-                      lblResult.setText("Clothing's name has already been entered please enter a different name.");
-                  }
+                    for (Clothing c : iClothes.values())
+                    {
+                        if (c.getProductName().equals(cName))
+                        {
+                            isFound = true;
+                            break;
+                        }
+                    }
+
+                    if (isFound == false)
+                    {
+                        //Converts the string variable into a double
+                        double cPrice = Double.parseDouble(price);
+                        //Converts the string variable into a integer
+                        int cStockLevel = Integer.parseInt(stockLevel);
+
+                        // Creates a new clothing object
+                        Clothing cloth = new Clothing(cName, cPrice, cStockLevel, cMeasurement);
+                        // Adds it to the hashmap using the product name is  the key
+                        clothes.put(cName, cloth);
+
+                        // Saves clothing to the database using the clothing object
+                        db.saveClothing(cloth);
+                        // Loads data from the database to the hashmap that uses productId as the key
+                        iClothes = db.loadAllClothing();
+                        // Label to show its been added
+                        gui.success(lblResult, cloth, action);
+                        isFound = false;
+                    }
+
+                    else
+                    {
+                        lblResult.setText("Clothing's name has already been entered please enter a different name.");
+                    }
                 }
-                
+
                 // if cPrice and cStocklevel are the wrong data type
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     lblResult.setText("Please enter a decimal value for price and a number for stock level");
                     System.out.println(ex.getMessage());
@@ -356,7 +369,7 @@ public class SAddProduct extends javax.swing.JFrame {
             }
         }
         // If the footwear radio button is selected
-        else if(rbFootwear.isSelected())
+        else if (rbFootwear.isSelected())
         {
             //Taking data from text boxes and adding them to variables
             String fName = txtName.getText();
@@ -365,58 +378,57 @@ public class SAddProduct extends javax.swing.JFrame {
             String size = txtChoice.getText();
             isClothing = false;
             // Makes sure all text fields are filled
-            if(fName.equals("")&& price.equals("")&& stockLevel.equals("") && size.equals(""))
+            if (fName.equals("") || price.equals("") || stockLevel.equals("") || size.equals(""))
             {
                 lblResult.setText("Please enter an input in all fields");
             }
-            
+
             else
             {
-                 // Checks to see if user input for fPrice fStocklevel and fSize are the right data type
+                // Checks to see if user input for fPrice fStocklevel and fSize are the right data type
                 // They can be converted to a double and integer respectively
                 try
                 {
-                  for(Footwear f : iShoes.values())
-                  {
-                      if(f.getProductName().equals(fName))
-                      {
-                          isFound = true;
-                          break;
-                      }
-                  }
-                  
-                  if(isFound == false)
-                  {
-                    //Converts the string variable into a double
-                    double fPrice = Double.parseDouble(price);
-                    //Converts the string variable into a integer
-                    int fStockLevel = Integer.parseInt(stockLevel);
-                    int fSize = Integer.parseInt(size);
-                    
-                    
-                    // Creates a new footwear object
+                    for (Footwear f : iShoes.values())
+                    {
+                        if (f.getProductName().equals(fName))
+                        {
+                            isFound = true;
+                            break;
+                        }
+                    }
+
+                    if (isFound == false)
+                    {
+                        //Converts the string variable into a double
+                        double fPrice = Double.parseDouble(price);
+                        //Converts the string variable into a integer
+                        int fStockLevel = Integer.parseInt(stockLevel);
+                        int fSize = Integer.parseInt(size);
+
+                        // Creates a new footwear object
 //                    Product prodF = new Product(fName, fPrice, fStockLevel);
 //                    db.saveProducts(prodF);
 //                    int prodFId = db.prodId(prodF);
-                    Footwear fwear = new Footwear(fName, fPrice, fStockLevel, fSize);
-                    // Adds it to the hashmap using the product name is  the key
-                    shoes.put(fName, fwear);
-                     // Saves footwear to the database using the footwear object
-                    db.saveFootwear(fwear);
-                    // Loads data from the database to the hashmap that uses productId as the key
-                    iShoes = db.loadAllFootwear();
-                    // Label to show its been added
-                    gui.success(lblResult, fwear, action);
-                  }
-                  
-                  else
-                  {
-                      
-                  }
+                        Footwear fwear = new Footwear(fName, fPrice, fStockLevel, fSize);
+                        // Adds it to the hashmap using the product name is  the key
+                        shoes.put(fName, fwear);
+                        // Saves footwear to the database using the footwear object
+                        db.saveFootwear(fwear);
+                        // Loads data from the database to the hashmap that uses productId as the key
+                        iShoes = db.loadAllFootwear();
+                        // Label to show its been added
+                        gui.success(lblResult, fwear, action);
+                    }
+
+                    else
+                    {
+
+                    }
 
                 }
                 // if fPrice, fStocklevel and fSize are the wrong data type
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     lblResult.setText("Please enter a decimal value for price and a number for stock level and size.");
                     System.out.println(ex.getMessage());
@@ -428,7 +440,7 @@ public class SAddProduct extends javax.swing.JFrame {
         {
             lblResult.setText("Please select clothing or footwear");
         }
-        
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -438,7 +450,7 @@ public class SAddProduct extends javax.swing.JFrame {
         txtPrice.setText("");
         txtStockLevel.setText("");
         txtChoice.setText("");
-        
+
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -452,34 +464,48 @@ public class SAddProduct extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(SAddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(SAddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(SAddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(SAddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new SAddProduct().setVisible(true);
             }
         });

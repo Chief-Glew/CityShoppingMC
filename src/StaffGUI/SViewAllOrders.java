@@ -14,25 +14,31 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author mcarr
  */
-public class SViewAllOrders extends javax.swing.JFrame {
-
+public class SViewAllOrders extends javax.swing.JFrame
+{
+    //Global Variables
     DBManager db = new DBManager();
-    HashMap <Integer,Order> orders = new HashMap<>();
+    HashMap<Integer, Order> orders = new HashMap<>();
     Customer cust = new Customer();
     GUI gui = new GUI();
     String action = "";
     String error = "EMPTY1971";
     Order order = new Order();
+
     /**
      * Creates new form SViewAllOrders
      */
-    public SViewAllOrders() {
+    public SViewAllOrders()
+    {
         initComponents();
+        // Loads all customers into a hashmap
         orders = db.loadAllOrders();
-        DefaultTableModel dtm = (DefaultTableModel)tblSOrders.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) tblSOrders.getModel();
+        // Creates a string array for the collumn
+        // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
         String[] data = new String[5];
         gui.populateOrders(data, orders, dtm, tblSOrders);
-        
+
     }
 
     /**
@@ -131,25 +137,30 @@ public class SViewAllOrders extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ViewOrderLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewOrderLineActionPerformed
+        
+        // turns selected row into an order object
+        order = gui.findOrder(tblSOrders);
+        action = "viewed";
+        // checks if order has not been selected orders data will be set to error
+        if (order.getOrderDate().equals(error))
+        {
+            // displays a warning that order line cannot be viewed
+            gui.warning(lblResult, order, action);
+        }
+        else
+        {
+            // Passes in parameter customer and order to SViewPlacedOrderLines and takes you to that form
+            SViewOrderLines svol = new SViewOrderLines(order);
+            this.dispose();
+            svol.setVisible(true);
+        }
 
-            order = gui.findOrder(tblSOrders);
-            action = "viewed";
-            if(order.getOrderDate().equals(error))
-            {
-                gui.warning(lblResult,order, action);
-            }
-            else
-            {
-              SViewOrderLines svol = new SViewOrderLines(order);
-              this.dispose();
-              svol.setVisible(true);  
-            }
-            
     }//GEN-LAST:event_ViewOrderLineActionPerformed
 
     private void btnStaffHomeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnStaffHomeActionPerformed
     {//GEN-HEADEREND:event_btnStaffHomeActionPerformed
         // TODO add your handling code here:
+        // Taks you back to the customer home page
         SHomeGUI sHome = new SHomeGUI();
         this.dispose();
         sHome.setVisible(true);
@@ -158,33 +169,47 @@ public class SViewAllOrders extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(SViewAllOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(SViewAllOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(SViewAllOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(SViewAllOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new SViewAllOrders().setVisible(true);
             }
         });

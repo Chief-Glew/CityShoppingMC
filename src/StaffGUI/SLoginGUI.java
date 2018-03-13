@@ -13,17 +13,18 @@ import java.util.HashMap;
  *
  * @author 30137568
  */
-public class SLoginGUI extends javax.swing.JFrame {
+public class SLoginGUI extends javax.swing.JFrame
+{
 
     /**
      * Creates new form StaffLoginGUI
      */
     Staff employee;
-    
-    public SLoginGUI() {
+
+    public SLoginGUI()
+    {
         initComponents();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -149,21 +150,21 @@ public class SLoginGUI extends javax.swing.JFrame {
 
     private void btn_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginActionPerformed
         // Hardcoded data for Staff
-        Staff myStaff = new Staff( 1,"test", "test", "Morna", "Carrick","Administration", 15000.00);
+        Staff myStaff = new Staff(1, "test", "test", "Morna", "Carrick", "Administration", 15000.00);
         //Global Variable equals Local Variable
         employee = myStaff;
         //logUsername equals what the user has inputed
         String logUsername = tfSLUsername.getText();
         // logPassword equals what the user has inputed
         char[] logPassword = pwdSLPassword.getPassword();
-        
+
         // strPassword is the char array converted into a string
         String strPassword = String.valueOf(logPassword);
-        
+
         // username and password equals the hardcoded values for username and password
         String username = myStaff.getUsername();
         String password = myStaff.getPassword();
-        
+
         // if user's username and password equals the hardcoded values
         if (logUsername.equals(username) && strPassword.equals(password))
         {
@@ -172,7 +173,7 @@ public class SLoginGUI extends javax.swing.JFrame {
             this.dispose();
             sHome.setVisible(true);
         }
-        
+
         else
         {
             // Let's you know the credentials are worng
@@ -183,26 +184,38 @@ public class SLoginGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(SLoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(SLoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(SLoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(SLoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -223,8 +236,10 @@ public class SLoginGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new SLoginGUI().setVisible(true);
             }
         });

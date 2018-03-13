@@ -18,61 +18,72 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author mcarr
  */
-public class CViewOrderLines extends javax.swing.JFrame {
-    //HashMap<Integer, OrderLine> orderLines = new HashMap<>();
+public class CViewOrderLines extends javax.swing.JFrame
+{
+
+    //Global Variables
     HashMap<Integer, OrderLine> oals = new HashMap<>();
     GUI gui = new GUI();
     OrderLine odl = new OrderLine();
     DBManager db = new DBManager();
     Customer cust = new Customer();
     double olTotal;
+    String error = "EMPTY1971";
     NumberFormat decFormat = new DecimalFormat("#0.00");
     Order order = new Order();
-    
-    
-    
-    
-    public CViewOrderLines() 
+
+    public CViewOrderLines()
     {
         initComponents();
-        
+        // Loads all the records that don't have an order ID
         oals = db.loadOrderLinesNoOrderID();
-        
-                //Creates a default list model
 
-         DefaultTableModel dtm = (DefaultTableModel)tblCOrderLine.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
-        String [] data = new String[4];
-        gui.populateOrderLines(data, oals, dtm, tblCOrderLine);
+        //Creates a table model
+        DefaultTableModel dtm = (DefaultTableModel) tblCOrderLine.getModel();
         
+        // Creates a string array for the collumn
+        // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
+        String[] data = new String[4];
+        gui.populateOrderLines(data, oals, dtm, tblCOrderLine);
+        // Sets the total to zero
         olTotal = 0.00;
-        for(OrderLine o : oals.values())
+        // goes through all the orderlines and totals up the value
+        for (OrderLine o : oals.values())
         {
             olTotal += o.getLineTotal();
         }
+        // Convert the total into string format so I can display it
+        // Also makes sure it's to 2 decimal places
         String sFormat = decFormat.format(olTotal);
         lblTotal.setText("£" + sFormat);
     }
-    
-    public CViewOrderLines(HashMap <Integer, OrderLine> orls, Customer c) 
+
+    public CViewOrderLines(HashMap<Integer, OrderLine> orls, Customer c)
     {
         initComponents();
-        
+        // Loads all the records that don't have an order ID
         oals = db.loadOrderLinesNoOrderID();
+        // loads the passed customer object and hashmap into global variables
         cust = c;
+        // loads the customer from the database
         cust = db.loadCustomer(cust.getUsername());
-        DefaultTableModel dtm = (DefaultTableModel)tblCOrderLine.getModel();
-        //gui.clearRows(dtm.getRowCount(), dtm);
-        String [] data = new String[4];
+        
+        //Creates a table model
+        DefaultTableModel dtm = (DefaultTableModel) tblCOrderLine.getModel();
+         //gui.clearRows(dtm.getRowCount(), dtm);
+        // Creates a string array for the collumns
+        String[] data = new String[4];
+         // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
         gui.populateOrderLines(data, oals, dtm, tblCOrderLine);
         
-        
-        
-        for(OrderLine o : oals.values())
+        // goes through all the orderlines and totals up the value
+        for (OrderLine o : oals.values())
         {
             olTotal += o.getLineTotal();
-            
+
         }
+        // Convert the total into string format so I can display it
+        // Also makes sure it's to 2 decimal places
         double formTotal = olTotal;
         String sFormat = decFormat.format(formTotal);
         lblTotal.setText("£" + sFormat);
@@ -85,12 +96,12 @@ public class CViewOrderLines extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         btnBrowseProducts = new javax.swing.JButton();
         btnBuy = new javax.swing.JButton();
-        btnAddOrderLines = new javax.swing.JButton();
         btnRemoveOrderLines = new javax.swing.JButton();
         lblResult = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -101,35 +112,43 @@ public class CViewOrderLines extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnBrowseProducts.setText("Return To Orders");
-        btnBrowseProducts.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnBrowseProducts.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnBrowseProductsActionPerformed(evt);
             }
         });
 
         btnBuy.setText("Buy");
-        btnBuy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnBuy.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnBuyActionPerformed(evt);
             }
         });
 
-        btnAddOrderLines.setText("Add More Products");
-
         btnRemoveOrderLines.setText("Remove Selected Product");
-        btnRemoveOrderLines.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnRemoveOrderLines.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnRemoveOrderLinesActionPerformed(evt);
             }
         });
 
+        lblResult.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         jLabel1.setText("Order Line Total:");
 
         tblCOrderLine.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Product ID", "Order Name ", "Quantity", "Total"
             }
         ));
@@ -145,19 +164,17 @@ public class CViewOrderLines extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 13, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(btnBuy))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(btnAddOrderLines)))
-                            .addComponent(btnRemoveOrderLines))
+                                .addGap(19, 19, 19)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(btnBuy))
+                                .addGap(18, 18, 18)
+                                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRemoveOrderLines)))
                         .addGap(178, 178, 178))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnBrowseProducts)
@@ -186,9 +203,7 @@ public class CViewOrderLines extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addComponent(btnBuy)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAddOrderLines)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemoveOrderLines)))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
@@ -215,75 +230,76 @@ public class CViewOrderLines extends javax.swing.JFrame {
 
     private void btnRemoveOrderLinesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveOrderLinesActionPerformed
         // TODO add your handling code here:
-          if (olTotal == 0) 
-          {
-              lblResult.setText("Cannot remove any items since orders are empty");
-          }
-          else
-          {
+        // selects the orderline you've selected from the table and converts it to an object
+        odl = gui.findOrderLine(tblCOrderLine);
+        // if there has been no selection
+        if (odl.getProduct().getProductName().equals(error))//)
+        {
+            lblResult.setText("Cannot remove any items since orderline has not been selected");
+        }
+        else
+        {
+
             
-            odl = gui.findOrderLine(tblCOrderLine);
-            
+            // Once an orderline has been removed the orderline total decreases by the selected ordeline total
             olTotal -= odl.getLineTotal();
             
-            int stockBack  = odl.getQuantity();
+            // Once an orderline has been removed the stock changes
+            // the stock level you reduced when you added it to your order line 
+            // get put back to the product stock
+            int stockBack = odl.getQuantity();
             Product prod = odl.getProduct();
             int currentStock = prod.getStockLevel();
             int ammendedStock = stockBack + currentStock;
             prod.setStockLevel(ammendedStock);
+            //edits this change in the product database
             db.editProducts(prod);
             
+            // updates the total in the lblTotal
             double formTotal = olTotal;
+            // Formats it to 2 decimal places
             String sFormat = decFormat.format(formTotal);
             System.out.println(sFormat);
+            // Deletes the selected orderline 
             db.deleteOrderLine(odl);
+            //Loads the remaing orderlines with no ID
             oals = db.loadOrderLinesNoOrderID();
             lblTotal.setText("£" + sFormat);
-            
-            //Creates a default list model
-            DefaultTableModel dtm = (DefaultTableModel)tblCOrderLine.getModel();
-            //gui.clearRows(dtm.getRowCount(), dtm);
-            String [] data = new String[4];
+
+            //Creates a default table model
+            DefaultTableModel dtm = (DefaultTableModel) tblCOrderLine.getModel();
+            // Creates a string array for the collumns
+            String[] data = new String[4];
+            // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
             gui.populateOrderLines(data, oals, dtm, tblCOrderLine);
-            //Delete the clothing object from the database
-            //db.deleteClothing(cloth);
-            // Loads all clothing into the hashmap
-            //clothes = db.loadAllClothing(); 
-          }
-        
-        
+           
+        }
+
+
     }//GEN-LAST:event_btnRemoveOrderLinesActionPerformed
 
     private void btnBrowseProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseProductsActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel dtm = (DefaultTableModel)tblCOrderLine.getModel();
-        int rows = dtm.getRowCount();
+        // Get the table model
+        DefaultTableModel dtm = (DefaultTableModel) tblCOrderLine.getModel();
+        
+        // load a hashmap of orderlines with no orderID
         oals = db.loadOrderLinesNoOrderID();
         
-        
+        // if the hashmap isnt empty
         if (!oals.isEmpty())
         {
+            // Create a date, status and create a new order object
+            Date date = new Date();
+            String status = "Incomplete";
+            order = new Order(date, olTotal, status);
+
+            // save the order to the database
+            db.saveOrders(order, cust.getId());
             
-                Date date  = new Date();
-                String status = "Incomplete";
-                order = new Order(date, olTotal, status);
-                
-                 //I want to asign the correct orderID to the correct orderLine
-                //Once it's been assigned an orderline I want it to retain that order line and not override it.
-                db.saveOrders(order, cust.getId());
-                order = db.loadOrder(order.getOrderDate());
-                for(OrderLine ol : oals.values())
-                {
-                    Product prod = ol.getProduct();
-                    int newStock = prod.getStockLevel() - ol.getQuantity();
-                    db.editProducts(prod);
-//               
-                }
-                
-                db.editOrderOlsID(order.getOrderId(), oals);
- 
+
         }
-        
+        // Passes the customer back to CBrowseProducts
         CBrowseProducts cbp = new CBrowseProducts(cust);
         this.dispose();
         cbp.setVisible(true);
@@ -291,92 +307,98 @@ public class CViewOrderLines extends javax.swing.JFrame {
 
     private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
         // TODO add your handling code here:
-        if(olTotal == 0.00)
+        // if there are no items
+        if (olTotal == 0.00)
         {
-            lblResult.setText("There are no items in your cart. Go Back to browse products to add items to your basket.");
+            lblResult.setText("There are no items in your cart.");
         }
         else
         {
+            // Create a hashmap and load orderlines that have no order ID into it
             HashMap<Integer, OrderLine> orderLines = new HashMap<>();
             orderLines = db.loadOrderLinesNoOrderID();
+            // Create a new date set status to complete and set the total to the olTotal
             Date date = new Date();
-            
-        
-            String status = "Ordered";
-        
+            String status = "Complete";
             double total = olTotal;
-        
+            
+            // Add an order object
             Order order = new Order(date, total, status);
+            // save the order to the database
             db.saveOrders(order, cust.getId());
+            // load the order object from the database
             order = db.loadOrder(order.getOrderDate());
-           
-//            oals = db.loadOrderLinesNoOrderID();
-//            
-////            db.saveOrders(order, cust.getId());
-//            Order ord = db.loadOrder(order.getOrderDate());
-//            db.editOrderOlsID(ord.getOrderId(), oals);
-            //oals = db.findCustCompleteOrderLines(cust);
-//            order.setOrderLines(oals);
-//        
-//            //Here I want to check which values in the hash map have a orderId
-//            //Then I want to remove them from the hashmap
-//            //I'm doing this so ordered orderlines do not show up
-              //oals = db.loadOrderLinesNoOrderID();
-              
-              
-              db.editOrderOlsID(order.getOrderId(), orderLines);
-              orderLines= db.loadOrderLinesNoOrderID(); 
-              
-            DefaultTableModel dtm = (DefaultTableModel)tblCOrderLine.getModel();
-            //gui.clearRows(dtm.getRowCount(), dtm);
-            String [] data = new String[4];
+            
+            // Edit the order line to you assign the correct orderID for that orderLine
+            db.editOrderOlsID(order.getOrderId(), orderLines);
+            //Then load the orderline with no order ID
+            orderLines = db.loadOrderLinesNoOrderID();
+            
+            //Creates a default table model
+            DefaultTableModel dtm = (DefaultTableModel) tblCOrderLine.getModel();
+            // Creates a string array for the collumns
+            // Populates the table by taking in four parameters a String array a hashmap, a default table model and the table
+            String[] data = new String[4];
             gui.populateOrderLines(data, orderLines, dtm, tblCOrderLine);
+             // Sets the total to 0.00
             double olLTotal = 0.00;
             lblTotal.setText("£" + olLTotal);
-            
+
         }
 
 
-        
     }//GEN-LAST:event_btnBuyActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(CViewOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(CViewOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(CViewOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(CViewOrderLines.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new CViewOrderLines().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddOrderLines;
     private javax.swing.JButton btnBrowseProducts;
     private javax.swing.JButton btnBuy;
     private javax.swing.JButton btnRemoveOrderLines;

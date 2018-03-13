@@ -13,7 +13,8 @@ import java.util.HashMap;
  *
  * @author 30137568
  */
-public class CEditDetailsGUI extends javax.swing.JFrame {
+public class CEditDetailsGUI extends javax.swing.JFrame
+{
 
     /**
      * Creates new form CEditDetailsGUI
@@ -22,19 +23,20 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
     Customer loggedInUser;
     HashMap<Integer, Customer> customers;
     DBManager db = new DBManager();
-    
-    public CEditDetailsGUI() 
+
+    public CEditDetailsGUI()
     {
         initComponents();
     }
-    
+
     // Passed in Parameters to Constructor
-    public CEditDetailsGUI(HashMap<Integer, Customer> custs, Customer cust) {
+    public CEditDetailsGUI(HashMap<Integer, Customer> custs, Customer cust)
+    {
         initComponents();
         //Passed in global variables equal parameters passed in
         loggedInUser = cust;
         customers = custs;
-        
+
         // Populate the text boxes with logged in customer data
         txtUsername.setText(cust.getUsername());
         txtPassword.setText(loggedInUser.getPassword());
@@ -53,7 +55,8 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -74,8 +77,6 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
         txtAddressLine2 = new javax.swing.JTextField();
         txtTown = new javax.swing.JTextField();
         txtPostcode = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtShowEdit = new javax.swing.JTextArea();
         btnEdit = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         lblResult = new javax.swing.JLabel();
@@ -119,8 +120,10 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
         txtPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         txtFirstName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtFirstName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtFirstName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 txtFirstNameActionPerformed(evt);
             }
         });
@@ -134,27 +137,28 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
         txtTown.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         txtPostcode.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtPostcode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtPostcode.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 txtPostcodeActionPerformed(evt);
             }
         });
 
-        txtShowEdit.setColumns(20);
-        txtShowEdit.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        txtShowEdit.setRows(5);
-        jScrollPane1.setViewportView(txtShowEdit);
-
         btnEdit.setText("Submit");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnEdit.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnEditActionPerformed(evt);
             }
         });
 
         btnBack.setText("Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnBack.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnBackActionPerformed(evt);
             }
         });
@@ -162,8 +166,10 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
         lblResult.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         btnClear.setText("Clear");
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnClear.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnClearActionPerformed(evt);
             }
         });
@@ -201,14 +207,11 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnBack)
-                                .addGap(44, 44, 44)
-                                .addComponent(btnClear)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEdit)))
+                        .addComponent(btnBack)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnClear)
+                        .addGap(62, 62, 62)
+                        .addComponent(btnEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblResult, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -242,7 +245,6 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(txtAddressLine1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -266,8 +268,7 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBack)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -284,7 +285,7 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -299,12 +300,12 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPostcodeActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-       // Setting up local variables to pass in data
+        // Setting up local variables to pass in data
         String username, password, firstName, lastName, addressLine1, addressLine2, town, postcode;
-        
+
         //New Instance of Customer
         Customer cust = new Customer();
-        
+
         //Taking data from text boxes and adding them to variables
         username = txtUsername.getText();
         password = txtPassword.getText();
@@ -314,7 +315,7 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
         addressLine2 = txtAddressLine2.getText();
         town = txtTown.getText();
         postcode = txtPostcode.getText();
-        
+
         // Setting the Customer Object
         cust.setUsername(username);
         cust.setPassword(password);
@@ -324,28 +325,18 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
         cust.setAddressLine2(addressLine2);
         cust.setTown(town);
         cust.setPostcode(postcode);
-        
+
         // Adding customer to the hashmap
-        cust = db.loadCustomer(username);
-        customers.put(cust.getId(), cust);
-        loggedInUser = cust;
         
+        //loggedInUser = cust;
+
         // Editing the Customers Table and Loading the database data into the customers hashmap.
         db.editCustomers(cust);
-        db.loadCustomers();
+        loggedInUser = db.loadCustomer(username);
         
-        // Shows the edited text you have inputed. For testing purposes
-        txtShowEdit.setText("Username: " + cust.getUsername()
-                +"\nPassword: " + cust.getPassword() 
-                + "\nFirst Name: " + cust.getFirstName()
-                + "\nLast Name: " + cust.getLastName()
-                + "\nHouse Number: " + cust.getAddressline1()
-                + "\nStreet: " + cust.getAddressLine2()
-                + "\nTown: " + cust.getTown()
-                + "\nPostcode: " + cust.getPostcode());
-        
+
         // Label appears when Customer data has been editied
-        lblResult.setText("Customer details have been edited.");    
+        lblResult.setText("Customer details have been edited.");
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -360,35 +351,47 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-       // Sends the customer and hashmap of customers to the Customer Home pge
-       CHomeGUI cHome = new CHomeGUI(loggedInUser, customers);
-       this.dispose();
-       cHome.setVisible(true);
+        // Sends the customer and hashmap of customers to the Customer Home pge
+        CHomeGUI cHome = new CHomeGUI(loggedInUser, customers);
+        this.dispose();
+        cHome.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(CEditDetailsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(CEditDetailsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(CEditDetailsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(CEditDetailsGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -401,8 +404,10 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new CEditDetailsGUI().setVisible(true);
             }
         });
@@ -423,7 +428,6 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblResult;
     private javax.swing.JTextField txtAddressLine1;
     private javax.swing.JTextField txtAddressLine2;
@@ -431,7 +435,6 @@ public class CEditDetailsGUI extends javax.swing.JFrame {
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtPostcode;
-    private javax.swing.JTextArea txtShowEdit;
     private javax.swing.JTextField txtTown;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
