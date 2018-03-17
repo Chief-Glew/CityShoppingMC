@@ -19,17 +19,16 @@ import javax.swing.table.DefaultTableModel;
 public class CBrowseProducts extends javax.swing.JFrame
 {
     // Global variables
-    DBManager db = new DBManager();
-    Customer cust = new Customer();
-    GUI gui = new GUI();
-    String action = "";
-    String error = "EMPTY1971";
-    HashMap<Integer, Clothing> clothes = new HashMap<>();
-    HashMap<Integer, Footwear> shoes = new HashMap<>();
-    HashMap<Integer, OrderLine> ols = new HashMap<>();
-    int itemTaken;
-    int columnNumber = 4;
-    String columnName = "";
+    private DBManager dbManager = new DBManager();
+    private Customer customer = new Customer();
+    private GUI gui = new GUI();
+    private String error = "EMPTY1971";
+    private HashMap<Integer, Clothing> clothes;
+    private HashMap<Integer, Footwear> shoes;
+    private HashMap<Integer, OrderLine> orderLines = new HashMap<>();
+    private int itemTaken;
+    private int columnNumber = 4;
+    private String columnName = "";
 
     /**
      * Creates new form ViewProducts
@@ -48,18 +47,15 @@ public class CBrowseProducts extends javax.swing.JFrame
         initComponents();
         groupButton();
         // loads all clothing and footwear into hashmaps from the database
-        clothes = db.loadAllClothing();
-        shoes = db.loadAllFootwear();
+        clothes = dbManager.loadAllClothing();
+        shoes = dbManager.loadAllFootwear();
     }
     // Passed in Parameters to Constructor
-    public CBrowseProducts(Customer c)
+    public CBrowseProducts(Customer customer)
     {
-        initComponents();
-        groupButton();
-        //Global variables equal parameter c passed in
-        cust = c;
-        clothes = db.loadAllClothing();
-        shoes = db.loadAllFootwear();
+        this();
+        //Global variables equal parameter customer passed in
+        this.customer = customer;
     }
 
     /**
@@ -260,7 +256,7 @@ public class CBrowseProducts extends javax.swing.JFrame
         columnName = "Measurement";
         gui.renameColumn(tblCProducts, columnNumber, columnName);
         // loads all the clothing from the database into the hashmap
-        clothes = db.loadAllClothing();
+        clothes = dbManager.loadAllClothing();
         
         // Gets the table and converts it into a model
         DefaultTableModel dtm = (DefaultTableModel) tblCProducts.getModel();
@@ -277,7 +273,7 @@ public class CBrowseProducts extends javax.swing.JFrame
         columnName = "Size";
         gui.renameColumn(tblCProducts, columnNumber, columnName);
         // Loads all the footwear to a hashmap
-        shoes = db.loadAllFootwear();
+        shoes = dbManager.loadAllFootwear();
         
         // Gets the table and converts it into a model
         DefaultTableModel dtm = (DefaultTableModel) tblCProducts.getModel();
@@ -311,46 +307,46 @@ public class CBrowseProducts extends javax.swing.JFrame
         int productId;
         int quantity;
         double lineTotal;
-        action = "added";
+        String action = "added";
         // if the clothing radio button is selected
         if (rbClothing.isSelected())
         {
             // Convert the selected row into a clothing object
-            Clothing cloth = gui.findClothing(tblCProducts);
+            Clothing clothing = gui.findClothing(tblCProducts);
             
             // If clothing  equals error text this means a row has not been selcted
-            if (cloth.getProductName().equals(error))
+            if (clothing.getProductName().equals(error))
             {
                 // outputs a warning  that clothing has not been added.
-                gui.warning(lblResult, cloth, action);
+                gui.warning(lblResult, clothing, action);
             }
             else
             {
                 // the quanity selected it greater than the current stock level
-                if (itemTaken > cloth.getStockLevel())
+                if (itemTaken > clothing.getStockLevel())
                 {
                     // warning label notifying user
                     lblResult.setText("No clothing left in stock or quantity is equal to zero");
                 }
                 
                 // if stocklevel is greater or equal to item taken
-                else if (cloth.getStockLevel() >= itemTaken)
+                else if (clothing.getStockLevel() >= itemTaken)
                 {
                     // the stocklevel is reduced by the item taken
                     // the stock level is edited on the database
                     // hashmap loads all clothing again since stock level has changed
-                    int nStockLevel = cloth.getStockLevel() - itemTaken;
-                    cloth.setStockLevel(nStockLevel);
-                    db.editClothing(cloth);
-                    clothes = db.loadAllClothing();
+                    int nStockLevel = clothing.getStockLevel() - itemTaken;
+                    clothing.setStockLevel(nStockLevel);
+                    dbManager.editClothing(clothing);
+                    clothes = dbManager.loadAllClothing();
 
-                    orderName = cloth.getProductName();
-                    productId = cloth.getProductID();
+                    orderName = clothing.getProductName();
+                    productId = clothing.getProductID();
 
                     quantity = itemTaken;
-                    lineTotal = quantity * cloth.getPrice();
+                    lineTotal = quantity * clothing.getPrice();
                     // orderline saved 
-                    db.saveOrderLine(productId, orderName, quantity, lineTotal);
+                    dbManager.saveOrderLine(productId, orderName, quantity, lineTotal);
                     // success text
                     lblResult.setText("Clothing added to order line");
 
@@ -392,8 +388,8 @@ public class CBrowseProducts extends javax.swing.JFrame
                     int nStockLevel = shoe.getStockLevel() - itemTaken;
                     shoe.setStockLevel(nStockLevel);
                     System.out.println("" + shoe.getStockLevel());
-                    db.editFootwear(shoe);
-                    shoes = db.loadAllFootwear();
+                    dbManager.editFootwear(shoe);
+                    shoes = dbManager.loadAllFootwear();
 
                     orderName = shoe.getProductName();
                     productId = shoe.getProductID();
@@ -401,7 +397,7 @@ public class CBrowseProducts extends javax.swing.JFrame
                     quantity = itemTaken;
                     lineTotal = quantity * shoe.getPrice();
                     // orderline saved 
-                    db.saveOrderLine(productId, orderName, quantity, lineTotal);
+                    dbManager.saveOrderLine(productId, orderName, quantity, lineTotal);
                     // success text
                     lblResult.setText("Footwear added to order line");
 
@@ -434,7 +430,7 @@ public class CBrowseProducts extends javax.swing.JFrame
     private void btnCHomePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCHomePageActionPerformed
         // TODO add your handling code here:
         // passes customer to Chome
-        CHomeGUI ch = new CHomeGUI(cust);
+        CHomeGUI ch = new CHomeGUI(customer);
         this.dispose();
         ch.setVisible(true);
     }//GEN-LAST:event_btnCHomePageActionPerformed
@@ -442,7 +438,7 @@ public class CBrowseProducts extends javax.swing.JFrame
     private void btnCViewBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCViewBasketActionPerformed
         // TODO add your handling code here:
         //Passes a hashmap of Orderlines and a customer object to CViewBasket
-        CViewOrderLines cvol = new CViewOrderLines(ols, cust);
+        CViewOrderLines cvol = new CViewOrderLines(orderLines, customer);
         this.dispose();
         cvol.setVisible(true);
     }//GEN-LAST:event_btnCViewBasketActionPerformed
